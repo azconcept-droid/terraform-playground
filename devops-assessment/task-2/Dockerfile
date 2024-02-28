@@ -5,7 +5,7 @@ FROM python:3.9
 WORKDIR /app
 
 # Copy the Python script and requirements file to the container
-COPY your_python_app.py /app/
+COPY app.py /app/
 COPY requirements.txt /app/
 
 # Install dependencies
@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Define the command to run your Flask app
-CMD ["python", "your_python_app.py"]
+CMD ["python", "app.py"]

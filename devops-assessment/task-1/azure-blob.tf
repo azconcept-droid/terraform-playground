@@ -14,11 +14,11 @@ provider "azurerm" {
 }
 
 
-# resource "random_string" "resource_code" {
-#   length  = 5
-#   special = false
-#   upper   = false
-# }
+resource "random_string" "resource_code" {
+  length  = 5
+  special = false
+  upper   = false
+}
 
 resource "azurerm_resource_group" "helmchart" {
   name     = "helmchartgroup"
@@ -26,8 +26,7 @@ resource "azurerm_resource_group" "helmchart" {
 }
 
 resource "azurerm_storage_account" "helmchart" {
-  # name                     = "helmstorage${random_string.resource_code.result}"
-  name                     = "helmstoragea49hm"
+  name                     = "helmstorage${random_string.resource_code.result}"
   resource_group_name      = azurerm_resource_group.helmchart.name
   location                 = azurerm_resource_group.helmchart.location
   account_tier             = "Standard"
