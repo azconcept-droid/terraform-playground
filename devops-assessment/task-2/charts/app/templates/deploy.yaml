@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "your-app.fullname" . }}
+  labels:
+    app: {{ include "your-app.name" . }}
+    chart: {{ include "your-app.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "your-app.name" . }}
+      release: {{ .Release.Name | quote }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "your-app.name" . }}
+        release: {{ .Release.Name | quote }}
+    spec:
+      containers:
+        - name: your-app
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - name: http
+              containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "your-app.fullname" . }}
+  labels:
+    app: {{ include "your-app.name" . }}
+    chart: {{ include "your-app.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: http
+  selector:
+    app: {{ include "your-app.name" . }}
+    release: {{ .Release.Name | quote }}

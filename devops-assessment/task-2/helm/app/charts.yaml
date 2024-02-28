@@ -1,0 +1,4 @@
+apiVersion: v2
+name: your-app
+description: A Helm chart for deploying your simple HTTP app to AKS
+version: 0.1.0
